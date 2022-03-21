@@ -2,6 +2,7 @@ from inspect import isclass
 
 from django.apps import apps
 from django.contrib.contenttypes.fields import GenericRelation
+from django.db import models
 from django.db.models.base import ModelBase
 from django.core.exceptions import ImproperlyConfigured
 
@@ -33,7 +34,8 @@ def setup_generic_relations(model_class):
         kwargs = {
             'content_type_field': '%s_content_type' % field,
             'object_id_field': '%s_object_id' % field,
-            related_attr_name: attr_value
+            related_attr_name: attr_value,
+            'on_delete': models.SET_NULL # Avoid deleting activity when related object has been deleted
         }
         rel = GenericRelation('actstream.Action', **kwargs)
         rel.contribute_to_class(model_class, attr)
