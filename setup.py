@@ -32,4 +32,7 @@ setup(name='django-activity-stream',
       extras_require={
           'jsonfield': ['django-jsonfield-backport>=1.0.2,<2.0'],
       },
+      install_requires={
+          'django': ['django>=2.2']
+      }
       )
