@@ -2,6 +2,7 @@ from inspect import isclass
 
 from django.apps import apps
 from django.contrib.contenttypes.fields import GenericRelation
+from django.db import models
 from django.db.models.base import ModelBase
 from django.core.exceptions import ImproperlyConfigured
 
@@ -27,13 +28,13 @@ def setup_generic_relations(model_class):
     related_attr_value = 'actions_with_%s' % label(model_class)
 
     relations = {}
-    for field in ('actor', 'target', 'action_object'):
+    for field in ('actor', 'target'):
         attr = '%s_actions' % field
         attr_value = '{}_as_{}'.format(related_attr_value, field)
         kwargs = {
             'content_type_field': '%s_content_type' % field,
             'object_id_field': '%s_object_id' % field,
-            related_attr_name: attr_value
+            related_attr_name: attr_value,
         }
         rel = GenericRelation('actstream.Action', **kwargs)
         rel.contribute_to_class(model_class, attr)

@@ -154,7 +154,6 @@ class ActivityTestCase(DataTestCase):
     def test_generic_relation_accessors(self):
         self.assertEqual(self.user2.actor_actions.count(), 2)
         self.assertEqual(self.user2.target_actions.count(), 1)
-        self.assertEqual(self.user2.action_object_actions.count(), 0)
 
     def test_hidden_action(self):
         testaction = self.user1.actor_actions.all()[0]
