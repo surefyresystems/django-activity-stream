@@ -109,6 +109,10 @@ jobs:
         if: matrix.database == 'postgres'
         run: pip install psycopg2-binary>=2.8.6
 
+      - name: Install Django ReST framework libraries
+        run: pip install -U django-rest-framework rest-framework-generic-relations drf-spectacular
+
+
       # install our package
       - name: Install package
         run: pip install -e .
